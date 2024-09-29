@@ -1,0 +1,253 @@
+{% load static %}
+{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | Quantified Sensor Technology</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/quantified_logo.webp' %}" type="image/x-icon">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+    {% block header %}
+    <header>
+        <section class="header-navigatie-container">
+            <div class="logo-container">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/quantified_logo.webp' %}" alt="Logo van Quantified">
+                </a>
+            </div>
+            <nav class="navigatie-container">
+                <ul>
+                    <li class="nav-item active">
+                        <a href="{% url 'producten' %}">
+                            Producten
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Integraties
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Cases
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Nieuws
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Over ons
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Support
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Account
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            Login Insight
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="translate-search-container">
+                <button class="button">Boek een demo</button>
+                <div class="language-container">
+                    <span class="language-code">NL</span>
+                    <img src="{% static 'images/svg/nl-4x3.svg' %}" alt="Dutch flag" class="flag">
+                </div>
+                <div class="search-icon">
+                    <img src="{% static 'images/svg/search-glass.svg' %}" alt="Search">
+                </div>              
+            </div>
+        </section>
+        <section class="header-image-container" style="background-image: linear-gradient(to right, rgba(91, 183, 133, 1), rgba(91, 183, 133, 0)), url('{% static header_background_image %}')">
+            <div class="header-image-content">
+                <div class="header-content-left">
+                    {% block headerContent %}
+
+                    {% endblock %}
+                </div>
+                <div class="header-content-right"></div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="svg-header"><path fill="#ffffff" fill-opacity="1" d="M0,64L80,96C160,128,320,192,480,186.7C640,181,800,107,960,90.7C1120,75,1280,117,1360,138.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+        </section>
+    </header>
+    {% endblock %}
+    
+    {% block content %}
+    <main>
+        <div id="messageModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span> 
+                <div class="modal-body">
+                    <p id="modalMessageContent">Je formulier is succesvol verzonden!</p> 
+                    <button id="modal-ok-button">OK</button>
+                </div>
+            </div>            
+        </div>
+        
+        {% if messages %}
+            <div class="messages" style="display:none;">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}            
+        {% block mainContent %}
+
+        {% endblock %}
+    </main>
+    {% endblock %}
+    
+    {% block footer %}
+    <footer>
+        <section class="footer-main-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="svg-footer">
+                <path fill="#ffffff" fill-opacity="1" d="M0,64L80,96C160,128,320,192,480,186.7C640,181,800,107,960,90.7C1120,75,1280,117,1360,138.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+            </svg>
+            <div class="footer-inner-container">
+                <div class="footer-choice-header">
+                    <h2>Kunnen wij je ergens mee helpen?</h2>
+                    <h2>Wij staan je graag te woord!</h2>
+                </div>
+                <form method="POST" action="{% url 'footer_vragen_form_submit' %}">
+                    {% csrf_token %}
+                    <div class="footer-form-choice-1">
+                        <label for="id_category">Heb je vragen over onze producten?</label>
+                        {{ footer_vragen_form.category }}
+                    </div>
+                    <div class="footer-form-choice-2">
+                        <label for="id_question">Vul hier je vraag of opmerking in:</label>
+                        {{ footer_vragen_form.question }}
+                        <p>0 tot maximaal 250 karakters</p>
+                    </div>
+                    <button type="submit">Volgende</button>
+                </form>
+            </div>
+        </section>
+        <section class="footer-sub-container">
+            <div class="footer-inner-sub-container-nav">
+                <div class="footer-img-container footer-div">
+                    <a href="/">
+                        <img src="{% static 'images/quantified_logo_wit.webp' %}" alt="">
+                    </a>
+                </div>
+                <div class="footer-nav-container-1 footer-div">
+                    <h4>Quantified.eu</h4>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="/">Over ons</a>
+                            </li>
+                            <li>
+                                <a href="/">Integraties</a>
+                            </li>
+                            <li>
+                                <a href="/">Cases</a>
+                            </li>
+                            <li>
+                                <a href="/">Werken bij</a>
+                            </li>
+                            <li>
+                                <a href="/">Login account</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-nav-container-2 footer-div">
+                    <h4>Oplossingen</h4>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="/">Producten</a>
+                            </li>
+                            <li>
+                                <a href="/">Insight</a>
+                            </li>
+                            <li>
+                                <a href="/">App</a>
+                            </li>
+                            <li>
+                                <a href="/">Login Insight</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-nav-container-3 footer-div">
+                    <h4>Overig</h4>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="/">Nieuws</a>
+                            </li>
+                            <li>
+                                <a href="/">F.A.Q.</a>
+                            </li>
+                            <li>
+                                <a href="/">Tutorials</a>
+                            </li>
+                            <li>
+                                <a href="/">Pers</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-nav-container-4 footer-div">
+                    <h4>Nieuwsbrief</h4>
+                    <p>Ontvang maandelijkse updates!</p>
+                    <div>
+                        <button>Inschrijven</button>
+                        <a href="/">
+                            <img src="{% static 'images/svg/linkedin.svg' %}" alt="LinkedIn van Quantified">
+                        </a>
+                        <a href="/">
+                            <img src="{% static 'images/svg/twitter.svg' %}" alt="Twitter van Quantified">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-inner-sub-container-copyright">
+                <div>
+                    <ul>
+                        <li>
+                            <a href="/">Privacy verklaring</a>
+                        </li>
+                        <li>
+                            <a href="/">
+                                Cookie verklaring
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/">
+                                Cookie instellingen
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <p>
+                        &copy; 2024 door Quantified inc. Alle rechten voorbehouden
+                    </p>
+                </div>
+            </div>
+        </section>
+    </footer>
+    {% endblock %}
+</body>
+</html>

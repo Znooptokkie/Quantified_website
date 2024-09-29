@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+
+    {% block headerContent %}
+        <h1>Grow more, using less</h1>  
+        <p class="homepage-header-paragraph">High tech sensors for precision- and remote farming</p>
+    {% endblock %}
+
+{% block mainContent %}
+    {% for post in test_posts %}
+        <p>ID: {{ post.id }}</p>
+        <h1>Title: {{ post.title }}</h1>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,5 @@
+[client]
+database = quantified_db
+user = admin    
+password = 12345678
+default-character-set = utf8mb4

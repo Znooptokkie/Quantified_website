@@ -1,0 +1,57 @@
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# MySql configuratie
+my.cnf
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific files
+*.log
+db.sqlite3
+/media/
+*.pyc
+*.pyo
+
+# Static and media files
+/staticfiles/
+MEDIA_ROOT/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# macOS specific files
+.DS_Store
+
+# Coverage reports
+htmlcov/
+.coverage
+*.cover
+.hypothesis/
+
+# Test files
+.tox/
+.nox/
+.pytest_cache/
+
+# Documentation
+docs/_build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Docker specific
+*.pid
+*.swp
+Dockerfile
+
+# Backup files
+*.bak
+*.swp
